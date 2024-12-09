@@ -1,0 +1,27 @@
+@model VTYS.Models.Entity.Instructor
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Eğitmen Girişi";
+}
+
+<div class="login-container">
+    <img src="~/logo-karadeniz-teknik-universite (1).png" alt="Logo">
+    <h1>Bilgi Yönetim Sistemi</h1>
+
+    <form method="post" asp-action="Login">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control" name="email" placeholder="Email" type="email">
+        </div>
+        <div class="mb-3">
+            <input class="form-control" name="password" placeholder="Şifre (ID)" type="number">
+        </div>
+        <div>
+            <button class="btn btn-primary w-100" type="submit">Giriş Yap</button>
+        </div>
+    </form>
+
+    <div class="text-center mt-3">
+        <a href="@Url.Action("Login", "Student")" class="btn btn-secondary">Öğrenci Girişi</a>
+    </div>
+</div>

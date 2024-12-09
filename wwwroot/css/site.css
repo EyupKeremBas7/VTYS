@@ -1,0 +1,57 @@
+/* Genel stil tanımlamaları */
+body {
+  background-color: #00426a; /* Arka plan rengini koruyun */
+  color: white; /* Metin rengini koruyun */
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px; /* Maksimum genişlik */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+form {
+  width: 100%;
+  max-width: 400px; /* Formun maksimum genişliği */
+  margin: 0 auto; /* Ortalamak için */
+}
+
+.table {
+  width: 100%;
+  max-width: 600px; /* Tablo maksimum genişliği */
+  margin: 0 auto; /* Ortalamak için */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-align: center;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* VTYS kısmını düzeltmek için eklenen stil */
+.navbar-brand {
+  white-space: nowrap;
+  text-align: center;
+  word-break: normal;
+  color: white; /* Metin rengini koruyun */
+}
+
+footer {
+  margin-top: auto;
+  width: 100%;
+  text-align: center;
+}
+
+/* Giriş sayfalarını ortalamak için eklenen stil */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}

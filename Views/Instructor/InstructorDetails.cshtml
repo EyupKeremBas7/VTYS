@@ -1,0 +1,54 @@
+@model VTYS.Models.Entity.Instructor
+@{
+    ViewData["Title"] = "Eğitmen Bilgileri";
+}
+
+<h2>Eğitmen Bilgileri</h2>
+<table class="table">
+    <tr>
+        <th>Eğitmen ID</th>
+        <td>@Model.InstructorId</td>
+    </tr>
+    <tr>
+        <th>Ad Soyad</th>
+        <td>@Model.FullName</td>
+    </tr>
+    <tr>
+        <th>E-mail</th>
+        <td>@Model.EMail</td>
+    </tr>
+    <tr>
+        <th>Bölüm</th>
+        <td>@Model.Department</td>
+    </tr>
+</table>
+
+@if (Model.Students.Any())
+{
+    <h3>Danışmanlık Yaptığı Öğrenciler</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Öğrenci Adı</th>
+                <th>Bölüm</th>
+                <th>Sınıf</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model.Students)
+            {
+                <tr>
+                    <td>@student.Fullname</td>
+                    <td>@student.Major</td>
+                    <td>@student.Class</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<style>
+    th, td {
+        color: white;
+    }
+</style>

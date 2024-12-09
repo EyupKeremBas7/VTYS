@@ -1,0 +1,48 @@
+@model VTYS.Models.Entity.Student
+
+@{
+    ViewData["Title"] = "Seçmeli Ders Seçimi";
+    Layout = "_Layout";
+}
+
+<h2>Seçmeli Ders Seçimi</h2>
+
+@if (Model.SelectedCourses.Any(sc => !sc.Course.IsMandatory))
+{
+    <h3>Seçili Dersler</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ders Adı</th>
+                <th>Onay Durumu</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Model.SelectedCourses.Where(sc => !sc.Course.IsMandatory))
+            {
+                <tr>
+                    <td>@course.Course.CourseName</td>
+                    <td>@(course.IsApproved ? "Onaylı" : "Onaysız")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Henüz seçili seçmeli dersiniz yok.</p>
+}
+
+<h3>Mevcut Seçmeli Dersler</h3>
+<form method="post" asp-action="SelectAdjectiveCourse">
+    <div class="form-group">
+        <label for="courseId">Ders Seç</label>
+        <select class="form-control" id="courseId" name="courseId">
+            @foreach (var course in ViewBag.AvailableCourses)
+            {
+                <option value="@course.CourseId">@course.CourseName</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Ders Seç</button>
+</form>

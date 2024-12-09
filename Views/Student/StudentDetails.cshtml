@@ -1,0 +1,67 @@
+@model VTYS.Models.Entity.Student
+@{
+    ViewData["Title"] = "Öğrenci Bilgileri";
+}
+
+<h2>Öğrenci Bilgileri</h2>
+<div class="mb-3">
+    <a href="@Url.Action("SelectAdjectiveCourse", "Student")" class="btn btn-primary">Seçmeli Ders Seç</a>
+    <a href="@Url.Action("UpdateInfo", "Student")" class="btn btn-secondary">Bilgi Güncelle</a>
+</div>
+<table class="table">
+    <tr>
+        <th>Öğrenci ID</th>
+        <td>@Model.StudentId</td>
+    </tr>
+    <tr>
+        <th>Ad Soyad</th>
+        <td>@Model.Fullname</td>
+    </tr>
+    <tr>
+        <th>E-mail</th>
+        <td>@Model.EMail</td>
+    </tr>
+    <tr>
+        <th>Bölüm</th>
+        <td>@Model.Major</td>
+    </tr>
+    <tr>
+        <th>Sınıf</th>
+        <td>@Model.Class</td>
+    </tr>
+    @if (Model.Instructor != null)
+    {
+        <tr>
+            <th>Danışman</th>
+            <td>@Model.Instructor.FullName</td>
+        </tr>
+    }
+</table>
+
+@if (Model.SelectedCourses.Any())
+{
+    <h3>Dersler</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ders Adı</th>
+                <th>Onay Durumu</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Model.SelectedCourses)
+            {
+                <tr>
+                    <td>@course.Course.CourseName</td>
+                    <td>@(course.IsApproved ? "Onaylı" : "Onaysız")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<style>
+    th, td {
+        color: white;
+    }
+</style>
