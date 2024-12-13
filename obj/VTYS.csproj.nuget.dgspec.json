@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\eyupm\\Desktop\\IMS\\VTYS\\VTYS.csproj": {}
+    "C:\\Users\\eyupm\\Desktop\\IMS\\VTYS\\VTYS.csproj": {}
   },
   "projects": {
-    "c:\\Users\\eyupm\\Desktop\\IMS\\VTYS\\VTYS.csproj": {
+    "C:\\Users\\eyupm\\Desktop\\IMS\\VTYS\\VTYS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\eyupm\\Desktop\\IMS\\VTYS\\VTYS.csproj",
+        "projectUniqueName": "C:\\Users\\eyupm\\Desktop\\IMS\\VTYS\\VTYS.csproj",
         "projectName": "VTYS",
-        "projectPath": "c:\\Users\\eyupm\\Desktop\\IMS\\VTYS\\VTYS.csproj",
+        "projectPath": "C:\\Users\\eyupm\\Desktop\\IMS\\VTYS\\VTYS.csproj",
         "packagesPath": "C:\\Users\\eyupm\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\eyupm\\Desktop\\IMS\\VTYS\\obj\\",
+        "outputPath": "C:\\Users\\eyupm\\Desktop\\IMS\\VTYS\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
