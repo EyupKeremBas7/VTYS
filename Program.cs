@@ -1,5 +1,6 @@
 using VTYS.Models.Entity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,13 @@ builder.Services.AddDbContext<VtysContext>(options =>
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     options.UseSqlServer(connectionString);
 });
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Student/Login";
+        options.LogoutPath = "/Student/Logout";
+    });
 
 var app = builder.Build();
 
@@ -24,12 +32,14 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
 
+
+app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseRouting();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Student}/{action=Login}/{id?}");
+    pattern: "{controller=Student}/{action=Login}");
 
 app.Run();

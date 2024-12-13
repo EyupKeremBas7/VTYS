@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VTYS.Models.Entity;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace VTYS.Controllers
 {
@@ -50,9 +53,16 @@ namespace VTYS.Controllers
                             InstructorId = course.InstructorId,
                             IsApproved = true // Automatically approve mandatory courses
                         };
-
                         _context.SelectedCourses.Add(selectedCourse);
                     }
+                        var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name, student.Fullname),
+                            new Claim(ClaimTypes.Email, student.EMail)
+                        };
+
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    
 
                     await _context.SaveChangesAsync();
                 }
@@ -62,6 +72,14 @@ namespace VTYS.Controllers
 
             ModelState.AddModelError(string.Empty, "Geçersiz giriş denemesi.");
             return View();
+        }
+
+        
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Student");
         }
 
         // GET: Student/getStudentList
