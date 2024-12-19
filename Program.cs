@@ -13,13 +13,6 @@ builder.Services.AddDbContext<VtysContext>(options =>
     options.UseSqlServer(connectionString);
 });
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/Student/Login";
-        options.LogoutPath = "/Student/Logout";
-    });
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

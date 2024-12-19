@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\eyupm\\Desktop\\IMS\\VTYS\\VTYS.csproj": {}
+    "c:\\Users\\eyupm\\Desktop\\IMS\\VTYS.worktrees\\EyupKeremBas7\\issue1\\VTYS.csproj": {}
   },
   "projects": {
-    "C:\\Users\\eyupm\\Desktop\\IMS\\VTYS\\VTYS.csproj": {
+    "c:\\Users\\eyupm\\Desktop\\IMS\\VTYS.worktrees\\EyupKeremBas7\\issue1\\VTYS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\eyupm\\Desktop\\IMS\\VTYS\\VTYS.csproj",
+        "projectUniqueName": "c:\\Users\\eyupm\\Desktop\\IMS\\VTYS.worktrees\\EyupKeremBas7\\issue1\\VTYS.csproj",
         "projectName": "VTYS",
-        "projectPath": "C:\\Users\\eyupm\\Desktop\\IMS\\VTYS\\VTYS.csproj",
+        "projectPath": "c:\\Users\\eyupm\\Desktop\\IMS\\VTYS.worktrees\\EyupKeremBas7\\issue1\\VTYS.csproj",
         "packagesPath": "C:\\Users\\eyupm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\eyupm\\Desktop\\IMS\\VTYS\\obj\\",
+        "outputPath": "c:\\Users\\eyupm\\Desktop\\IMS\\VTYS.worktrees\\EyupKeremBas7\\issue1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

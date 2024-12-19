@@ -15,16 +15,15 @@ public partial class VtysContext : DbContext
     {
     }
 
-    public virtual DbSet<Course> Courses { get; set; }
+    public virtual DbSet<Course> Courses { get; set; } = null!;
 
-    public virtual DbSet<Instructor> Instructors { get; set; }
+    public virtual DbSet<Instructor> Instructors { get; set; }  = null!;
 
-    public virtual DbSet<SelectedCourse> SelectedCourses { get; set; }
+    public virtual DbSet<SelectedCourse> SelectedCourses { get; set; } = null!;
 
-    public virtual DbSet<Student> Students { get; set; }
+    public virtual DbSet<Student> Students { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=DESKTOP-0H5KPU2;Database=VTYS;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -51,11 +50,12 @@ public partial class VtysContext : DbContext
             entity.Property(e => e.Department).HasMaxLength(50);
             entity.Property(e => e.EMail)
                 .HasMaxLength(50)
-                .HasColumnName("E-mail");
+                .HasColumnName("EMail");
             entity.Property(e => e.FullName).HasMaxLength(50);
             entity.Property(e => e.Title).HasMaxLength(50);
+            entity.Property(e => e.Password).HasMaxLength(50);
         });
-
+        
         modelBuilder.Entity<SelectedCourse>(entity =>
         {
             entity.HasKey(e => e.SelectionId);

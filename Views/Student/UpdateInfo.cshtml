@@ -1,0 +1,54 @@
+@model VTYS.Models.Entity.Student
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #00426a">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <span style="color: white;">Bilgi Yönetim Sistemi</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="@Url.Action("UpdateInfo", "Student", new { id = Model.StudentId })" class="btn btn-secondary">Bilgi Güncelle</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("SelectAdjectiveCourse", "Student" , new{ id = Model.StudentId })" class="btn btn-secondary">Seçmeli Ders Seç</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Login", "Student")" class="btn btn-secondary">Çıkış</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+@{
+    ViewData["Title"] = "Bilgi Güncelleme";
+}
+
+<h2><a href="@Url.Action("Details", "Student", new{ id = @Model.StudentId })" class="btn btn-secondary">Bilgi Güncelle</a></h2>
+
+<form asp-action="UpdateInfo" asp-route-id="@Model.StudentId" method="post" >
+    <input type="hidden" asp-for="@Model.StudentId"/>
+    <div class="form-group">
+        <label asp-for="EMail" class="control-label"></label>
+        <input asp-for="EMail" class="form-control" />
+        <span asp-validation-for="EMail" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" class="control-label"></label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Güncelle" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

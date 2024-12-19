@@ -1,0 +1,79 @@
+@model VTYS.Models.Entity.Instructor
+@{
+    ViewData["Title"] = "Eğitmen Bilgileri";
+}
+
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #00426a">
+    <div class="container-fluid">
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+            <span style="color: white;">Bilgi Yönetim Sistemi</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a href="@Url.Action("UpdateInfo", "Instructor", new { id = Model.InstructorId })" class="btn btn-secondary">Bilgi Güncelle</a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("AdjectiveCourse", "Instructor", new { id = Model.InstructorId })" class="btn btn-secondary">Ders Seçenekleri</a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("Login", "Instructor")" class="btn btn-secondary">Çıkış</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<h2>Eğitmen Bilgileri</h2>
+<table class="table" border="1">
+    <tr>
+        <th>Eğitmen ID</th>
+        <td>@Model.InstructorId</td>
+    </tr>
+    <tr>
+        <th>Ad Soyad</th>
+        <td>@Model.FullName</td>
+    </tr>
+    <tr>
+        <th>E-mail</th>
+        <td>@Model.EMail</td>
+    </tr>
+    <tr>
+        <th>Bölüm</th>
+        <td>@Model.Department</td>
+    </tr>
+</table>
+
+@if (Model.Students.Any())
+{
+    <h3>Danışmanlık Yaptığı Öğrenciler</h3>
+    <table class="table" border="1">
+        <thead>
+            <tr>
+                <th>Öğrenci Adı</th>
+                <th>Bölüm</th>
+                <th>Sınıf</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model.Students)
+            {
+                <tr>
+                    <td>@student.Fullname</td>
+                    <td>@student.Major</td>
+                    <td>@student.Class</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<style>
+    th, td {
+        color: white;
+    }
+</style>

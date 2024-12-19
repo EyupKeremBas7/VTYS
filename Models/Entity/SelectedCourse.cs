@@ -11,7 +11,7 @@ public partial class SelectedCourse
 
     public int CourseId { get; set; }
 
-    public int InstructorId { get; set; }
+    public int? InstructorId { get; set; }
 
     public bool IsApproved { get; set; }
 
