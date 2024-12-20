@@ -6,7 +6,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #00426a">
     <div class="container-fluid">
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+        <a class="navbar-brand" asp-area="" asp-controller="Instructor" asp-action="Details" asp-route-id="instructor.InstructorId">
             <span style="color: white;">Bilgi Yönetim Sistemi</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
 }
 else
 {
-    <p>@ViewBag.Message</p>
+    <p style="text-align:center;">Onay bekleyen ders bulunmamaktadır.</p>
 }
 
 @section Scripts {
@@ -73,16 +73,20 @@ else
             $('.approve-form').submit(function(event) {
                 event.preventDefault();
                 var id = $(this).data('id');
-                $.post('@Url.Action("ApproveCourse")', { id: id }, function(response) {
+                $.post('@Url.Action("ApproveCourse", "Instructor")/' + id, function(response) {
                     location.reload();
+                }).fail(function() {
+                    alert("Onaylama işlemi başarısız oldu.");
                 });
             });
 
             $('.reject-form').submit(function(event) {
                 event.preventDefault();
                 var id = $(this).data('id');
-                $.post('@Url.Action("RejectCourse")', { id: id }, function(response) {
+                $.post('@Url.Action("RejectCourse", "Instructor")/' + id, function(response) {
                     location.reload();
+                }).fail(function() {
+                    alert("Reddetme işlemi başarısız oldu.");
                 });
             });
         });

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VTYS.Models.Entity;
-using System.Security.Claims;
 
 namespace VTYS.Controllers
 {
@@ -64,80 +63,6 @@ namespace VTYS.Controllers
             return await _context.Instructors.ToListAsync();
         }
 
-        // GET: Instructor/getById
-        [HttpGet("getById")]
-        public async Task<ActionResult<Instructor>> GetInstructor(int id)
-        {
-            var instructor = await _context.Instructors.FindAsync(id);
-
-            if (instructor == null)
-            {
-                return NotFound(new { Message = "Instructor not found." });
-            }
-
-            return instructor;
-        }
-
-        // PUT: Instructor/{id}
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateInstructor(int id, Instructor instructor)
-        {
-            if (id != instructor.InstructorId)
-            {
-                return BadRequest(new { Message = "Instructor ID mismatch." });
-            }
-
-            _context.Entry(instructor).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!InstructorExists(id))
-                {
-                    return NotFound(new { Message = "Instructor not found." });
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: Instructor
-        [HttpPost]
-        public async Task<ActionResult<Instructor>> CreateInstructor(Instructor instructor)
-        {
-            _context.Instructors.Add(instructor);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetInstructor", new { id = instructor.InstructorId }, instructor);
-        }
-
-        // DELETE: Instructor/{id}
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteInstructor(int id)
-        {
-            var instructor = await _context.Instructors.FindAsync(id);
-            if (instructor == null)
-            {
-                return NotFound(new { Message = "Instructor not found." });
-            }
-
-            _context.Instructors.Remove(instructor);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool InstructorExists(int id)
-        {
-            return _context.Instructors.Any(e => e.InstructorId == id);
-        }
         // GET: Instructor/UpdateInfo/0
         [HttpGet("UpdateInfo/{id}")]
         public async Task<IActionResult> UpdateInfo(int id)
@@ -196,7 +121,7 @@ namespace VTYS.Controllers
                 TempData["SuccessMessage"] = "Profil başarıyla güncellendi!";
                 return RedirectToAction("Details", new{id = instructor.InstructorId});
         }
-        
+        //Get Instructor/SelectAdjectiveCourse/0
         [HttpGet("AdjectiveCourse/{id}")]
         public async Task<IActionResult> AdjectiveCourse(int id)
         {
@@ -216,7 +141,7 @@ namespace VTYS.Controllers
 
             return View(selectedCourses);
         }
-
+        //Post Instructor/ApproveCourse/0
         [HttpPost("ApproveCourse/{id}")]
         public async Task<IActionResult> ApproveCourse(int id)
         {
@@ -233,7 +158,8 @@ namespace VTYS.Controllers
             TempData["SuccessMessage"] = "Ders başarıyla onaylandı!";
             return Ok();
         }
-
+        
+        
         [HttpPost("RejectCourse/{id}")]
         public async Task<IActionResult> RejectCourse(int id)
         {
@@ -247,7 +173,7 @@ namespace VTYS.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Ders başarıyla reddedildi!";
-            return View();
+            return Ok();
         }
     }
 }

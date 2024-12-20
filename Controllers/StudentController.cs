@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VTYS.Models.Entity;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 
 namespace VTYS.Controllers
@@ -64,7 +62,6 @@ namespace VTYS.Controllers
                     new Claim(ClaimTypes.Email, student.EMail)
                 };
 
-
                 return RedirectToAction("Details", new { id = student.StudentId });
             }
 
@@ -101,97 +98,6 @@ namespace VTYS.Controllers
         public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
             return await _context.Students.ToListAsync();
-        }
-
-        // GET: Student/getById
-        [HttpGet("getById")]
-        public async Task<ActionResult<Student>> GetStudent(int id)
-        {
-            var student = await _context.Students.FindAsync(id);
-
-            if (student == null)
-            {
-                return NotFound(new { Message = "Student not found." });
-            }
-
-            return student;
-        }
-
-        // PUT: Student/{id}
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateStudent(int id, Student student)
-        {
-            if (id != student.StudentId)
-            {
-                return BadRequest(new { Message = "Student ID mismatch." });
-            }
-
-            _context.Entry(student).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!StudentExists(id))
-                {
-                    return NotFound(new { Message = "Student not found." });
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: Student
-        [HttpPost]
-        public async Task<ActionResult<Student>> CreateStudent(Student student)
-        {
-            _context.Students.Add(student);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetStudent", new { id = student.StudentId }, student);
-        }
-
-        // DELETE: Student/{id}
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteStudent(int id)
-        {
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
-            {
-                return NotFound(new { Message = "Student not found." });
-            }
-
-            _context.Students.Remove(student);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool StudentExists(int id)
-        {
-            return _context.Students.Any(e => e.StudentId == id);
-        }
-
-        // GET: Student/getByAdvisorId
-        [HttpGet("getByAdvisorId")]
-        public async Task<ActionResult<IEnumerable<Student>>> GetStudentsByInstructorId(int InstructorId)
-        {
-            var students = await _context.Students
-                                        .Where(s => s.InstructorId == InstructorId)
-                                        .ToListAsync();
-
-            if (!students.Any())
-            {
-                return NotFound(new { Message = $"{InstructorId} bu akademisyenin danışmanlık." });
-            }
-
-            return Ok(students);
         }
 
         // GET: Student/UpdateInfo/0
@@ -254,7 +160,8 @@ namespace VTYS.Controllers
                 TempData["SuccessMessage"] = "Profil başarıyla güncellendi!";
                 return RedirectToAction("Details", new{id = student.StudentId});
         }
-        
+
+        //Get Student/SelectAdjectiveCourse/0
         [HttpGet("SelectAdjectiveCourse/{id}")]
         public async Task<IActionResult> SelectAdjectiveCourse(int id)
         {
@@ -264,15 +171,20 @@ namespace VTYS.Controllers
                 return NotFound("Öğrenci bulunamadı.");
             }
 
-            var AdjectiveCourses = await _context.Courses
+            var courses = await _context.Courses
                 .Where(c => !c.IsMandatory && c.Class == student.Class)
+                .ToListAsync();
+
+            var selectedCourse = await _context.SelectedCourses
+                .Where(sc => sc.StudentId == student.StudentId)
                 .ToListAsync();
 
             ViewBag.Student = student;
 
-            return View(AdjectiveCourses);
+            return View(courses);
         }
 
+        // Post: Student/SelectAdjectiveCourse/0
         [HttpPost("SelectAdjectiveCourse/{id}")]
         public async Task<IActionResult> SelectAdjectiveCourse(int id, int[] selectedCourses)
         {
@@ -284,13 +196,13 @@ namespace VTYS.Controllers
 
             foreach (var courseId in selectedCourses)
             {
-                var AdjectiveCourses = await _context.Courses.FindAsync(courseId);
-                if (AdjectiveCourses == null)
+                var course = await _context.Courses.FindAsync(courseId);
+                if (course == null)
                 {
                     return NotFound($"Kurs bulunamadı: {courseId}");
                 }
 
-                if (AdjectiveCourses.InstructorId == null)
+                if (course.InstructorId == null)
                 {
                     return BadRequest($"Kursun bir eğitmeni yok: {courseId}");
                 }
@@ -299,7 +211,7 @@ namespace VTYS.Controllers
                 {
                     StudentId = student.StudentId,
                     CourseId = courseId,
-                    InstructorId = AdjectiveCourses.InstructorId.Value,
+                    InstructorId = course.InstructorId.Value,
                     IsApproved = false
                 };
                 _context.SelectedCourses.Add(selectedCourse);
