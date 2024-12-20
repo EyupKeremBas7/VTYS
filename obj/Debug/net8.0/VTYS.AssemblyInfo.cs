@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VTYS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+51bffa9e1d65097f87a00fd2b2627e2af9d5155c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+38ff5627c1c4b5ffa1334f07f4d024d164d965a9")]
 [assembly: System.Reflection.AssemblyProductAttribute("VTYS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VTYS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

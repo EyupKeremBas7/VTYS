@@ -2,13 +2,13 @@
 
 @{
     ViewData["Title"] = "Seçmeli Ders Seç";
-    var student = ViewBag.Student as VTYS.Models.Entity.Student;
+    var student = ViewData["Student"] as VTYS.Models.Entity.Student;
 }
 
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #00426a">
         <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+            <a class="navbar-brand" asp-area="" asp-controller="Student" asp-action="Details" asp-route-id="@student.StudentId">
                 <span style="color: white;">Bilgi Yönetim Sistemi</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@
 <form asp-action="SelectAdjectiveCourse" method="post">
     <div class="form-group">
         <label for="courses">Seçmeli Dersler</label>
-        <select id="courses" name="selectedCourses" class="form-control" multiple>
+        <select id="courses" name="selectedCourses" class="form-control" multiple size="10" style="height: 300px;">
             @foreach (var course in Model)
             {
                 <option value="@course.CourseId">@course.CourseName</option>
